@@ -42,20 +42,14 @@ class GameScene: SKScene {
     }()
     
     func movePlayer(){
-        if let accelerometerData = motionManager.accelerometerData {
-            motionManager.startAccelerometerUpdates()
-            motionManager.accelerometerUpdateInterval = 0.1
-            physicsWorld.gravity = CGVector(dx: accelerometerData.acceleration.x * -50, dy: accelerometerData.acceleration.y * 50)
-        }
+        
     }
     
     override func update(_ currentTime: TimeInterval) {
         if let accelerometerData = motionManager.accelerometerData {
-            //print("X: \(accelerometerData.acceleration.x), Y: \(accelerometerData.acceleration.y)")
-            physicsWorld.gravity = CGVector(dx: accelerometerData.acceleration.x * 9.8, dy: accelerometerData.acceleration.y * 9.8)
-            //print("X-axis: \(gundam.anchorPoint.x), Y-axis: \(gundam.anchorPoint.y)")
-            contains(CGPoint(x: 250, y: 500))
-            //print("x-axis:\(gundam.position.x), y-axis:\(gundam.position.y)")
+            physicsWorld.gravity = CGVector(dx: accelerometerData.acceleration.x * 8, dy: accelerometerData.acceleration.y * 8)
+            contains(CGPoint(x: 100, y: 500))
+            
         }
     }
     override func contains(_ p: CGPoint) -> Bool {
@@ -64,7 +58,10 @@ class GameScene: SKScene {
         var rect = CGRect(x: gundam.position.x, y: gundam.position.y, width: 100, height: 100)
         if rect.contains(p) {
             print("reached location")
+            motionManager.stopAccelerometerUpdates()
             gundam.physicsBody?.affectedByGravity = false
+            gundam.isPaused = false
+//            gundam.position = gundam.position
             onOrOff = false
             return false
         }
@@ -79,7 +76,6 @@ class GameScene: SKScene {
         motionManager.accelerometerUpdateInterval = 0.1
         addChild(gundam)
         physicsWorld.gravity = .zero
-        //movePlayer()
     }
     
 }

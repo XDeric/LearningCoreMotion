@@ -18,7 +18,7 @@ class MovingImage: UIViewController {
     
     lazy var button: UIButton = {
         let button = UIButton()
-        button.frame = CGRect(x: 100, y: 500, width: 75, height: 75)
+        button.sizeToFit()
         button.isHidden = false
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = #colorLiteral(red: 0.6798086851, green: 0.9229053351, blue: 0.9803921569, alpha: 1)
@@ -35,11 +35,22 @@ class MovingImage: UIViewController {
         present(vc, animated: true, completion: nil)
     }
     
+    func setupConstraints(){
+        button.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(button)
+        
+        NSLayoutConstraint.activate([
+        
+            button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            button.topAnchor.constraint(equalTo: view.topAnchor, constant: 30),
+        ])
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)
         presentScene()
-        view.addSubview(button)
+        setupConstraints()
     }
     
     //MARK: - Private Funcs

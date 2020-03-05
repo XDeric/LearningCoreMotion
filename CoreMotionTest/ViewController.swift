@@ -35,7 +35,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         constraints()
-        //startDeviceMotion()
+        startDeviceMotion()
         
     }
     
