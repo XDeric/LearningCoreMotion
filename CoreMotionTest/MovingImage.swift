@@ -40,7 +40,6 @@ class MovingImage: UIViewController {
         view.addSubview(button)
         
         NSLayoutConstraint.activate([
-        
             button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             button.topAnchor.constraint(equalTo: view.topAnchor, constant: 30),
         ])
@@ -61,8 +60,14 @@ class MovingImage: UIViewController {
         skView.showsNodeCount = true
         skView.showsFPS = true
         skView.showsPhysics = false
+        scene.buttonDelegate = self
         skView.presentScene(scene)
     }
 }
 
 
+extension MovingImage: ButtonStatus {
+    func delegate(onOrOff: Bool) {
+        button.isHidden = onOrOff
+    }
+}

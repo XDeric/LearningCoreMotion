@@ -11,7 +11,13 @@ import SpriteKit
 import CoreMotion
 import UIKit
 
+protocol ButtonStatus {
+    func delegate(onOrOff: Bool)
+}
+
 class GameScene: SKScene {
+    
+    var buttonDelegate: ButtonStatus?
     let motionManager = CMMotionManager()
     
     lazy var gundam: SKSpriteNode = {
@@ -29,27 +35,18 @@ class GameScene: SKScene {
     }()
     
     var onOrOff: Bool = false {
-        didSet {
-            button.isHidden = onOrOff
+        didSet{
+            buttonDelegate?.delegate(onOrOff: onOrOff)
         }
     }
     
-    lazy var button: UIButton = {
-        let button = UIButton()
-        button.frame = CGRect(x: 100, y: 500, width: 75, height: 75)
-        
-        return button
-    }()
-    
-    func movePlayer(){
-        
-    }
-    
     override func update(_ currentTime: TimeInterval) {
-        if let accelerometerData = motionManager.accelerometerData {
-            physicsWorld.gravity = CGVector(dx: accelerometerData.acceleration.x * 8, dy: accelerometerData.acceleration.y * 8)
-            contains(CGPoint(x: 100, y: 500))
-            
+        if onOrOff == false {
+            if let accelerometerData = motionManager.accelerometerData {
+                physicsWorld.gravity = CGVector(dx: accelerometerData.acceleration.x * 5, dy: accelerometerData.acceleration.y * 6)
+                contains(CGPoint(x: 100, y: 750))
+                
+            }
         }
     }
     override func contains(_ p: CGPoint) -> Bool {
@@ -58,16 +55,15 @@ class GameScene: SKScene {
         var rect = CGRect(x: gundam.position.x, y: gundam.position.y, width: 100, height: 100)
         if rect.contains(p) {
             print("reached location")
-            motionManager.stopAccelerometerUpdates()
             gundam.physicsBody?.affectedByGravity = false
-            gundam.isPaused = false
-//            gundam.position = gundam.position
-            onOrOff = false
-            return false
+            gundam.isHidden = true
+            
+            onOrOff = true
+            return true
         }
         else {
-            onOrOff = true
-            return true}
+            onOrOff = false
+            return false}
     }
     
     override func didMove(to view: SKView) {
@@ -83,3 +79,4 @@ class GameScene: SKScene {
 //motionManager.startAccelerometerUpdates(to: OperationQueue.main) { (data, error) in
 //    self.physicsWorld.gravity = CGVector(dx: (data?.acceleration.x)! * -50, dy: (data?.acceleration.y)! * 50)
 //}
+
