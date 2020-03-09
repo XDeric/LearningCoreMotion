@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		854989CB23EE12A600E7835C /* AcceleratingLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 854989CA23EE12A600E7835C /* AcceleratingLeft.swift */; };
+		85521FC324169CB6004BBBED /* extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85521FC224169CB6004BBBED /* extension.swift */; };
 		855556F02408801600839CD0 /* Temperorary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855556EF2408801600839CD0 /* Temperorary.swift */; };
 		855556F22408852600839CD0 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 855556F12408852500839CD0 /* GameScene.swift */; };
 		855556FB240D67E100839CD0 /* Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 855556FA240D67E100839CD0 /* Scene.sks */; };
@@ -35,6 +36,7 @@
 
 /* Begin PBXFileReference section */
 		854989CA23EE12A600E7835C /* AcceleratingLeft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceleratingLeft.swift; sourceTree = "<group>"; };
+		85521FC224169CB6004BBBED /* extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extension.swift; sourceTree = "<group>"; };
 		855556EF2408801600839CD0 /* Temperorary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Temperorary.swift; sourceTree = "<group>"; };
 		855556F12408852500839CD0 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		855556FA240D67E100839CD0 /* Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Scene.sks; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				85ECD6C923EB5F64002DAB11 /* ViewController.swift */,
 				854989CA23EE12A600E7835C /* AcceleratingLeft.swift */,
 				855556FA240D67E100839CD0 /* Scene.sks */,
+				85521FC224169CB6004BBBED /* extension.swift */,
 				85594DD623FDAD2D00F0B0D1 /* MovingImage.swift */,
 				855556F12408852500839CD0 /* GameScene.swift */,
 				855556EF2408801600839CD0 /* Temperorary.swift */,
@@ -225,6 +228,7 @@
 				85594DD723FDAD2D00F0B0D1 /* MovingImage.swift in Sources */,
 				854989CB23EE12A600E7835C /* AcceleratingLeft.swift in Sources */,
 				85ECD6EB23EC73EC002DAB11 /* Trial.swift in Sources */,
+				85521FC324169CB6004BBBED /* extension.swift in Sources */,
 				85ECD6CA23EB5F64002DAB11 /* ViewController.swift in Sources */,
 				855556F22408852600839CD0 /* GameScene.swift in Sources */,
 				85ECD6C623EB5F64002DAB11 /* AppDelegate.swift in Sources */,
