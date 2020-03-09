@@ -15,6 +15,7 @@ class MovingImage: UIViewController {
     
     let motionManager = CMMotionManager()
     var scene = GameScene()
+    let place: ButtonStatus? = nil
     
     lazy var instructions: UILabel = {
         let text = UILabel()
@@ -41,7 +42,7 @@ class MovingImage: UIViewController {
     lazy var falseButton: UIButton = {
         let button = UIButton()
         button.sizeToFit()
-        button.isHidden = false
+        button.isHidden = true
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = #colorLiteral(red: 0.6798086851, green: 0.9229053351, blue: 0.9803921569, alpha: 1)
         button.layer.cornerRadius = 5
@@ -54,7 +55,7 @@ class MovingImage: UIViewController {
     lazy var fakeButton: UIButton = {
         let button = UIButton()
         button.sizeToFit()
-        button.isHidden = false
+        button.isHidden = true
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = #colorLiteral(red: 0.6798086851, green: 0.9229053351, blue: 0.9803921569, alpha: 1)
         button.layer.cornerRadius = 5
@@ -87,24 +88,24 @@ class MovingImage: UIViewController {
             instructions.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             instructions.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             
-            falseButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            falseButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            falseButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
-            fakeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            fakeButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50),
+            fakeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
     }
     
     func startingAnimation(){
-        UIView.animateKeyframes(withDuration: 5, delay: 0, options: [.calculationModePaced], animations: {
-            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 2.5, animations: {
+        UIView.animateKeyframes(withDuration: 2, delay: 0, options: [.calculationModePaced], animations: {
+            UIView.addKeyframe(withRelativeStartTime: 0.0, relativeDuration: 1, animations: {
                 self.instructions.alpha = 1
                 self.instructions.transform = CGAffineTransform(scaleX: 2, y: 2)
             })
-            UIView.addKeyframe(withRelativeStartTime: 2.5, relativeDuration: 2.5, animations: {
+            UIView.addKeyframe(withRelativeStartTime: 1, relativeDuration: 1, animations: {
                 self.instructions.alpha = 0
-                //                self.instructions.transform = CGAffineTransform(scaleX: 0, y: 0)
             })
         }) { (Bool) in
-            //            self.presentScene()
         }
     }
     
@@ -134,7 +135,17 @@ class MovingImage: UIViewController {
 
 
 extension MovingImage: ButtonStatus {
-    func delegate(onOrOff: Bool) {
-        button.isHidden = onOrOff
+    func delegate(onOrOff: Bool, button: Int) {
+        
+        switch button {
+        case 0:
+            self.button.isHidden = onOrOff
+        case 1:
+            self.falseButton.isHidden = onOrOff
+        case 2:
+            self.fakeButton.isHidden = onOrOff
+        default:
+            print("iunno")
+        }
     }
 }

@@ -12,16 +12,29 @@ import CoreMotion
 import UIKit
 
 protocol ButtonStatus {
-    func delegate(onOrOff: Bool)
+    func delegate(onOrOff: Bool, button: Int)
 }
 
 class GameScene: SKScene {
     
     var buttonDelegate: ButtonStatus?
     let motionManager = CMMotionManager()
-    var onOrOff: Bool = true {
+    var onOrOff: Bool = true
+    var button1 = 0
+    {
         didSet{
-            buttonDelegate?.delegate(onOrOff: onOrOff)
+            buttonDelegate?.delegate(onOrOff: onOrOff, button: 0)
+        }
+    }
+    var button2 = 1
+    {
+        didSet{
+            buttonDelegate?.delegate(onOrOff: onOrOff, button: 1)
+        }
+    }
+    var button3 = 2{
+        didSet{
+            buttonDelegate?.delegate(onOrOff: onOrOff, button: 2)
         }
     }
     
@@ -40,13 +53,15 @@ class GameScene: SKScene {
     }()
     
     override func update(_ currentTime: TimeInterval) {
-        if onOrOff == true {
+//        if onOrOff == true {
             if let accelerometerData = motionManager.accelerometerData {
                 physicsWorld.gravity = CGVector(dx: accelerometerData.acceleration.x * 5, dy: accelerometerData.acceleration.y * 6)
                 contains(CGPoint(x: 100, y: 750))
+                contains1(CGPoint(x: 350, y: 500))
+                contains2(CGPoint(x: 200, y: 800))
                 
             }
-        }
+    //   }
     }
     override func contains(_ p: CGPoint) -> Bool {
         var xPoint = p.x
@@ -58,6 +73,43 @@ class GameScene: SKScene {
             gundam.isHidden = true
             
             onOrOff = false
+            button1 = 0
+            return true
+        }
+        else {
+            onOrOff = true
+            return false}
+    }
+    
+    func contains1(_ p: CGPoint) -> Bool {
+        var xPoint = p.x
+        var yPoint = p.y
+        var rect = CGRect(x: gundam.position.x, y: gundam.position.y, width: 100, height: 100)
+        if rect.contains(p) {
+            print("reached location")
+            gundam.physicsBody?.affectedByGravity = false
+            gundam.isHidden = true
+            
+            onOrOff = false
+            button2 = 1
+            return true
+        }
+        else {
+            onOrOff = true
+            return false}
+    }
+    
+    func contains2(_ p: CGPoint) -> Bool {
+        var xPoint = p.x
+        var yPoint = p.y
+        var rect = CGRect(x: gundam.position.x, y: gundam.position.y, width: 100, height: 100)
+        if rect.contains(p) {
+            print("reached location")
+            gundam.physicsBody?.affectedByGravity = false
+            gundam.isHidden = true
+            
+            onOrOff = false
+            button3 = 2
             return true
         }
         else {
