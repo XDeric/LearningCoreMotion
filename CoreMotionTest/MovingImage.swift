@@ -45,6 +45,14 @@ class MovingImage: UIViewController {
         ])
     }
     
+    func startingAnimation(){
+        UIImageView.animateKeyframes(withDuration: 2, delay: 0, options: .beginFromCurrentState, animations:  {
+            
+        }) { (Bool) in
+        
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0.8039215803, green: 0.8039215803, blue: 0.8039215803, alpha: 1)

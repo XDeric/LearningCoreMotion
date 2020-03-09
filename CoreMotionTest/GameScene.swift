@@ -19,9 +19,14 @@ class GameScene: SKScene {
     
     var buttonDelegate: ButtonStatus?
     let motionManager = CMMotionManager()
+    var onOrOff: Bool = true {
+        didSet{
+            buttonDelegate?.delegate(onOrOff: onOrOff)
+        }
+    }
     
     lazy var gundam: SKSpriteNode = {
-        let g = SKSpriteNode(imageNamed: "freedom")
+        let g = SKSpriteNode(imageNamed: "whiteLight")
         g.position = CGPoint(x: 200 , y: 400)
         g.zPosition = 1
         g.scale(to: CGSize(width: 100, height: 100))
@@ -34,14 +39,8 @@ class GameScene: SKScene {
         return g
     }()
     
-    var onOrOff: Bool = false {
-        didSet{
-            buttonDelegate?.delegate(onOrOff: onOrOff)
-        }
-    }
-    
     override func update(_ currentTime: TimeInterval) {
-        if onOrOff == false {
+        if onOrOff == true {
             if let accelerometerData = motionManager.accelerometerData {
                 physicsWorld.gravity = CGVector(dx: accelerometerData.acceleration.x * 5, dy: accelerometerData.acceleration.y * 6)
                 contains(CGPoint(x: 100, y: 750))
@@ -58,11 +57,11 @@ class GameScene: SKScene {
             gundam.physicsBody?.affectedByGravity = false
             gundam.isHidden = true
             
-            onOrOff = true
+            onOrOff = false
             return true
         }
         else {
-            onOrOff = false
+            onOrOff = true
             return false}
     }
     
