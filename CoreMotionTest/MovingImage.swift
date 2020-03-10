@@ -39,7 +39,7 @@ class MovingImage: UIViewController {
         return button
     }()
     
-    lazy var falseButton: UIButton = {
+    lazy var falseButton1: UIButton = {
         let button = UIButton()
         button.sizeToFit()
         button.isHidden = true
@@ -52,7 +52,7 @@ class MovingImage: UIViewController {
         return button
     }()
     
-    lazy var fakeButton: UIButton = {
+    lazy var falseButton2: UIButton = {
         let button = UIButton()
         button.sizeToFit()
         button.isHidden = true
@@ -74,12 +74,12 @@ class MovingImage: UIViewController {
     func setupConstraints(){
         instructions.translatesAutoresizingMaskIntoConstraints = false
         button.translatesAutoresizingMaskIntoConstraints = false
-        falseButton.translatesAutoresizingMaskIntoConstraints = false
-        fakeButton.translatesAutoresizingMaskIntoConstraints = false
+        falseButton1.translatesAutoresizingMaskIntoConstraints = false
+        falseButton2.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(instructions)
         view.addSubview(button)
-        view.addSubview(falseButton)
-        view.addSubview(fakeButton)
+        view.addSubview(falseButton1)
+        view.addSubview(falseButton2)
         
         NSLayoutConstraint.activate([
             button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
@@ -88,11 +88,11 @@ class MovingImage: UIViewController {
             instructions.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             instructions.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             
-            falseButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            falseButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            falseButton1.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            falseButton1.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
-            fakeButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50),
-            fakeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            falseButton2.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50),
+            falseButton2.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
     }
     
@@ -135,17 +135,14 @@ class MovingImage: UIViewController {
 
 
 extension MovingImage: ButtonStatus {
-    func delegate(onOrOff: Bool, button: Int) {
-        
-        switch button {
-        case 0:
-            self.button.isHidden = onOrOff
-        case 1:
-            self.falseButton.isHidden = onOrOff
-        case 2:
-            self.fakeButton.isHidden = onOrOff
-        default:
-            print("iunno")
-        }
+    func delegate(onOrOff: Bool) {
+        self.button.isHidden = onOrOff
+    }
+    func delegate1(onOrOff1: Bool) {
+        self.falseButton1.isHidden = onOrOff1
+    }
+    
+    func delegate2(onOrOff2: Bool) {
+        self.falseButton2.isHidden = onOrOff2
     }
 }

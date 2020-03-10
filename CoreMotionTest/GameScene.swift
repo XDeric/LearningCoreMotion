@@ -12,7 +12,9 @@ import CoreMotion
 import UIKit
 
 protocol ButtonStatus {
-    func delegate(onOrOff: Bool, button: Int)
+    func delegate(onOrOff: Bool)
+    func delegate1(onOrOff1: Bool)
+    func delegate2(onOrOff2: Bool)
 }
 
 class GameScene: SKScene {
@@ -21,7 +23,17 @@ class GameScene: SKScene {
     let motionManager = CMMotionManager()
     var onOrOff: Bool = true{
         didSet{
-            buttonDelegate?.delegate(onOrOff: onOrOff, button: 0)
+            buttonDelegate?.delegate(onOrOff: onOrOff)
+        }
+    }
+    var onOrOff1: Bool = true{
+        didSet{
+            buttonDelegate?.delegate1(onOrOff1: onOrOff1)
+        }
+    }
+    var onOrOff2: Bool = true{
+        didSet{
+            buttonDelegate?.delegate2(onOrOff2: onOrOff2)
         }
     }
     
@@ -41,77 +53,27 @@ class GameScene: SKScene {
     }()
     
     override func update(_ currentTime: TimeInterval) {
-//        if onOrOff == true {
+        if onOrOff == true {
             if let accelerometerData = motionManager.accelerometerData {
                 physicsWorld.gravity = CGVector(dx: accelerometerData.acceleration.x * 5, dy: accelerometerData.acceleration.y * 6)
-                foundWhichButton()
-                if contains(CGPoint(x: 100, y: 750)) {
-                    
-                }
-                else if contains1(CGPoint(x: 350, y: 500)) {
-                    
-                }
-                else if contains2(CGPoint(x: 200, y: 800)) {
-                    
-                }
-                
+                var position = CGRect(x: gundam.position.x, y: gundam.position.y, width: 100, height: 100)
+                foundWhichButton(rect: position)
             }
-    //   }
-    }
-    
-    func foundWhichButton(){
-        var rect = CGRect(x: gundam.position.x, y: gundam.position.y, width: 100, height: 100)
-            if rect.contains(CGPoint(x: 100, y: 750)) {
-                gundam.physicsBody?.affectedByGravity = false
-                gundam.isHidden = true
-                onOrOff = false
-            }
-            else {
-                onOrOff = true
         }
     }
     
-    override func contains(_ p: CGPoint) -> Bool {
-        var rect = CGRect(x: gundam.position.x, y: gundam.position.y, width: 100, height: 100)
-        if rect.contains(CGPoint(x: 200, y: 800)) {
+    func foundWhichButton(rect: CGRect){
+        if rect.contains(CGPoint(x: 100, y: 750)) {
             gundam.physicsBody?.affectedByGravity = false
             gundam.isHidden = true
-            
             onOrOff = false
-            
-            return true
         }
-        else {
-            onOrOff = true
-            return false}
-    }
-    
-    func contains1(_ p: CGPoint) -> Bool {
-        
-        var rect = CGRect(x: gundam.position.x, y: gundam.position.y, width: 100, height: 100)
-        if rect.contains(p) {
-            
-                        
-            onOrOff = false
-            
-            return true
+        else if rect.contains(CGPoint(x: 350, y: 500)) {
+            onOrOff1 = false
         }
-        else {
-            onOrOff = true
-            return false}
-    }
-    
-    func contains2(_ p: CGPoint) -> Bool {
-        
-        var rect = CGRect(x: gundam.position.x, y: gundam.position.y, width: 100, height: 100)
-        if rect.contains(p) {
-            onOrOff = false
-            
-            return true
+        else if rect.contains(CGPoint(x: 200, y: 800)) {
+            onOrOff2 = false
         }
-        else {
-            onOrOff = true
-            return false}
     }
     
     override func didMove(to view: SKView) {
